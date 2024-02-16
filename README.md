@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# How to build
+
+npm install @mui/material @emotion/react @emotion/styled
+npm install -g eslint
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:

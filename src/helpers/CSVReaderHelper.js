@@ -1,5 +1,6 @@
-const { GroupWorkLog } = require('../models/GroupWorkLog');
-const Papa = require('papaparse');
+
+import { GroupWorkLog } from '../models/GroupWorkLog';
+import  Papa from 'papaparse';
 
 export class CSVReaderHelper {
 
@@ -78,19 +79,13 @@ export class CSVReaderHelper {
     return assignedTo.substring(0, indexOf).trim();
   }
 
-  static parseLevelFromTitle (title) {
-    const prefix = "[Level ";
-    const suffix = ']';
-    if (title.startsWith(prefix) && title.includes(suffix)) {
-      const startIndex = title.indexOf(prefix) + prefix.length;
-      const endIndex = title.indexOf(suffix);
-      return title.substring(startIndex, endIndex - startIndex).trim();
-    }
-    return null;
-  }
+  static parseLevelFromTitle(levelString) {
+    const match = levelString.match(/Level ((\d+(\.\d+)?)|(\.\d+))/);
+    const result =  match ?  parseFloat(match[1]).toString() : null;
+    return result;
+  } 
 
   static getLevelString (groupWorkLog) {
-    console.log("groupWorkLog", groupWorkLog)
     if (!groupWorkLog.Title || groupWorkLog.Title.trim() === '') {
       return null;
     }

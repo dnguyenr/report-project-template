@@ -14,16 +14,17 @@ export class CSVReaderController {
             if (groupWorkLog.WorkItemType !== 'Task') return;
 
             const memberName = CSVReaderHelper.getMemberNameFromAssigned(groupWorkLog.AssignedTo);
-            if (!memberName) throw new Error(`Failed to parse MemberName. Processing row: ${JSON.stringify(groupWorkLog)}`);
+            if (!memberName) 
+              return;
 
             const currentBadge = this.getCurrentBadge(memberName, badgeDict);
             const level = CSVReaderHelper.getLevelString(groupWorkLog);
             if (!level) return;
-
+            
             const previousBadgeCode = this.getPreviousBadgeCode(currentBadge, level);
+             
             CSVReaderHelper.updateBadgeCode(previousBadgeCode, groupWorkLog);
         });
-
     return Object.values(badgeDict);
   }
 
